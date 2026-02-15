@@ -1,0 +1,66 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/Ionicons';
+import * as LocalAuthentication from 'expo-local-authentication';
+import { useApp } from '../context/AppContext';
+import { Button } from '../components/Button';
+import { Input } from '../components/Input';
+import { COLORS, SPACING, TYPOGRAPHY, ACCESSIBILITY } from '../utils/constants';
+
+export const LoginScreen: React.FC = () => {
+  const { login, settings } = useApp();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [passcode, setPasscode] = useState('');
+  const [loginMode, setLoginMode] = useState<'credentials' | 'passcode'>('credentials');
+  const [loading, setLoading] = useState(false);
+
+  const handleBiometricLogin = async () => {
+    try {
+      setLoading(true);
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
+      if (!hasHardware || !isEnrolled) {
+        Alert.alert(
+          'Biometric Login',
+          'Biometric authentication is not available on this device.'
+        );
+        return;
+      }
+
+      const result = await LocalAuthentication.authenticateAsync({
+        promptMessage: 'Authenticate to login',
+        fallbackLabel: 'Use passcode',
+      });
+
+      if (result.success) {
+        login();
+      } else {
+        Alert.alert('Authentication Failed', 'Please try again');
+      }
+    } catch (error) {
+      console.error('Biometric authentication error:', error);
+      Alert.alert('Error', 'Biometric authentication failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCredentialLogin = () => {
+    if (!username || !password) {
+      Alert.alert('Login Error', 'Please enter both username and password');
+      return;
+    }
+
+    // Demo credentials
+    if (username === 'demo' && password === 'demo123') {

@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "CareConnect",
+    "slug": "careconnect-react",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.careconnect.react",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Allow CareConnect to use Face ID for authentication."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.careconnect.react",
+      "permissions": [
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT"
+      ]
+    },
+    "plugins": [
+      "expo-local-authentication"
+    ],
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
