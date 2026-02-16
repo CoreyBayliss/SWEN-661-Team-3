@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.0.4",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-navigation/bottom-tabs": "^7.13.0",
     "@react-navigation/native": "^7.1.28",
@@ -40,7 +41,7 @@
       "<rootDir>/jest.setup.ts"
     ],
     "moduleNameMapper": {
-      "^react-native-vector-icons/(.*)$": "<rootDir>/__mocks__/vectorIconsMock.tsx"
+      "^@expo/vector-icons/(.*)$": "<rootDir>/__mocks__/vectorIconsMock.tsx"
     },
     "testPathIgnorePatterns": [
       "<rootDir>/__tests__/__mocks__/"

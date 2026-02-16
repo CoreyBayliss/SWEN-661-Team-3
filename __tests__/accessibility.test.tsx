@@ -16,7 +16,7 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
 }));
 
-jest.mock('react-native-vector-icons/Ionicons', () => 'Icon');
+jest.mock('@expo/vector-icons/Ionicons', () => 'Icon');
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('expo-local-authentication', () => ({
   hasHardwareAsync: jest.fn().mockResolvedValue(true),
