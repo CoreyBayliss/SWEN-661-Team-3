@@ -1,4 +1,4 @@
-import { format, parseISO, isToday, isTomorrow, isPast } from 'date-fns';
+import { format, parseISO, isToday, isTomorrow, isPast, startOfDay, isBefore } from 'date-fns';
 
 export const formatTime = (time: string): string => {
   try {
@@ -69,8 +69,9 @@ export const getUpcomingAppointments = (
 ): any[] => {
   return appointments
     .filter((apt) => {
-      const aptDate = parseISO(apt.date);
-      return !isPast(aptDate) || isToday(aptDate);
+      const aptDate = startOfDay(parseISO(apt.date));
+      const today = startOfDay(new Date());
+      return !isBefore(aptDate, today) || isToday(aptDate);
     })
     .sort((a, b) => {
       const dateA = parseISO(a.date);

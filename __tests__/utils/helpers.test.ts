@@ -9,6 +9,7 @@ import {
   validateEmail,
   validatePhone,
 } from '../../src/utils/helpers';
+import { format, addDays, subDays } from 'date-fns';
 
 describe('Helper Functions', () => {
   describe('formatTime', () => {
@@ -169,16 +170,14 @@ describe('Helper Functions', () => {
     });
 
     it('should exclude past appointments except today', () => {
-      const past = new Date();
-      past.setDate(past.getDate() - 1);
       const today = new Date();
-      const future = new Date();
-      future.setDate(future.getDate() + 1);
+      const past = subDays(today, 1);
+      const future = addDays(today, 1);
 
       const appointments = [
-        createAppointment('1', past.toISOString().split('T')[0]),
-        createAppointment('2', today.toISOString().split('T')[0]),
-        createAppointment('3', future.toISOString().split('T')[0]),
+        createAppointment('1', format(past, 'yyyy-MM-dd')),
+        createAppointment('2', format(today, 'yyyy-MM-dd')),
+        createAppointment('3', format(future, 'yyyy-MM-dd')),
       ];
 
       const upcoming = getUpcomingAppointments(appointments);
