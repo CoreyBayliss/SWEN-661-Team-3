@@ -1,0 +1,130 @@
+# E2E Test: Medication Management Flow
+# Critical user flow for viewing and managing medications
+# Includes accessibility features for screen reader navigation
+# React Native / Expo Implementation
+
+appId: com.careconnect.expo  # Updated for React Native
+
+---
+- launchApp
+
+# Login first
+- waitForAnimationToEnd
+- tapOn:
+    text: "Username"
+- inputText: "demo"
+- tapOn:
+    text: "Password"
+- inputText: "demo123"
+- tapOn:
+    text: "Sign In"
+- waitForAnimationToEnd
+
+# Navigate to Medications screen
+- tapOn:
+    text: "Medications"
+- waitForAnimationToEnd
+
+# Test accessibility: Verify medications list is visible
+- assertVisible:
+    text: "Medications"
+
+# Verify medication items are present
+- assertVisible:
+    id: "medications-list"
+
+# Test screen reader: Tap on first medication
+- tapOn:
+    id: "medication-card"
+
+- waitForAnimationToEnd
+
+# Verify medication detail screen loaded
+- assertVisible:
+    id: "medication-detail-screen"
+
+# Check medication information is displayed
+- assertVisible:
+    id: "medication-name"
+
+- assertVisible:
+    id: "medication-dose"
+
+- assertVisible:
+    id: "medication-frequency"
+
+# Test accessibility: Verify refill information
+- assertVisible:
+    text: "refill"
+
+# Test navigation back using back button
+- tapOn:
+    id: "back-button"
+
+- waitForAnimationToEnd
+
+# Verify we're back at medications list
+- assertVisible:
+    text: "Medications"
+
+# Test adding new medication - tap add button
+- tapOn:
+    id: "add-medication-button"
+
+- waitForAnimationToEnd
+
+# Verify add medication form is shown
+- assertVisible:
+    id: "add-medication-form"
+
+# Fill in medication form
+- tapOn:
+    id: "medication-name-field"
+
+- inputText: "Test Medication"
+
+- tapOn:
+    id: "medication-dose-field"
+
+- inputText: "500mg"
+
+# Test accessibility: Dropdown selection
+- tapOn:
+    id: "frequency-dropdown"
+
+- waitForAnimationToEnd
+
+- tapOn:
+    text: "Daily"
+
+- waitForAnimationToEnd
+
+# Submit the form
+- tapOn:
+    text: "Add Medication"
+
+- waitForAnimationToEnd
+
+# Verify medication was added
+- assertVisible:
+    text: "Medications"
+
+# Clean up - could delete the test medication here
+
+
+# Submit form
+- tapOn:
+    text: "Add Medication"
+
+- waitForAnimationToEnd
+
+# Verify medication was added
+- assertVisible:
+    text: "Test Medication"
+
+---
+# Cleanup: Navigate back to home
+- tapOn:
+    id: "home_button"
+
+- waitForAnimationToEnd

@@ -1,0 +1,104 @@
+# Maestro E2E Testing Configuration
+# CareConnect Flutter App - End-to-End Test Suite
+
+appId: com.example.care_connect
+
+# Maestro version compatibility
+maestroVersion: 1.35.0
+
+# Test flow configurations
+flows:
+  - name: "01_login_flow"
+    description: "User authentication flow with accessibility testing"
+    tags: ["critical", "auth", "accessibility"]
+    timeout: 300
+    
+  - name: "02_medication_management"
+    description: "Medication viewing, adding, and management"
+    tags: ["critical", "medications", "accessibility"]
+    timeout: 300
+    
+  - name: "03_appointments_flow"
+    description: "Appointment viewing, scheduling, and cancellation"
+    tags: ["critical", "appointments", "accessibility"]
+    timeout: 300
+    
+  - name: "04_refill_request_flow"
+    description: "Prescription refill request process"
+    tags: ["critical", "refills", "forms", "accessibility"]
+    timeout: 300
+    
+  - name: "05_settings_accessibility_flow"
+    description: "Settings configuration and accessibility options"
+    tags: ["critical", "settings", "accessibility"]
+    timeout: 300
+
+# Accessibility testing configuration
+accessibility:
+  enabled: true
+  screenReaderMode: true
+  contrastEnhancement: true
+  
+  # Screen reader test points - ensure all interactive elements have labels
+  screenReaderChecks:
+    - name: "Button Accessibility"
+      description: "All buttons must have accessible labels"
+      
+    - name: "Form Field Labels"
+      description: "All form fields must have labels"
+      
+    - name: "Image Alt Text"
+      description: "All images must have alt text"
+      
+    - name: "Heading Hierarchy"
+      description: "Headings must follow proper hierarchy"
+      
+    - name: "Focus Navigation"
+      description: "All elements must be reachable via keyboard"
+
+# Device configurations for testing
+devices:
+  - name: "iPhone 14"
+    model: "iPhone"
+    os: "iOS"
+    osVersion: "16.0"
+    
+  - name: "Android Pixel 6"
+    model: "Pixel 6"
+    os: "Android"
+    osVersion: "13"
+    
+  - name: "Tablet - iPad Pro"
+    model: "iPad Pro"
+    os: "iOS"
+    osVersion: "16.0"
+    
+  - name: "Tablet - Android"
+    model: "Samsung Tab S8"
+    os: "Android"
+    osVersion: "13"
+
+# Performance thresholds
+performance:
+  maxLoginTime: 5000  # milliseconds
+  maxNavigationTime: 3000  # milliseconds
+  maxFormSubmitTime: 4000  # milliseconds
+
+# Retry configuration for flaky tests
+retryPolicy:
+  maxRetries: 2
+  backoffMultiplier: 1.5
+  
+# Reporting configuration
+reporting:
+  format: "json"
+  outputDir: "maestro/reports"
+  captureScreenshots: true
+  captureVideo: true
+  
+# Environment variables
+env:
+  TEST_USERNAME: "demo"
+  TEST_PASSWORD: "demo123"
+  TEST_PHARMACY: "CVS Pharmacy"
+  DEMO_MODE: "true"

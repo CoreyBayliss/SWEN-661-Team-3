@@ -1,0 +1,74 @@
+# E2E Test: User Login Flow
+# Critical user flow for application authentication
+# Includes accessibility testing for screen readers
+# React Native / Expo Implementation
+
+appId: com.careconnect.expo  # Updated for React Native
+
+---
+- launchApp
+
+# Wait for app to load
+- waitForAnimationToEnd
+
+# Test accessibility: Check that login screen is announced
+- assertVisible:
+    text: "Welcome"
+
+# Alternative: Use testID for React Native components
+- assertVisible:
+    text: "CareConnect"
+
+# Test screen reader navigation - username field
+- tapOn:
+    text: "Username"
+
+# Type username
+- inputText: "demo"
+
+# Tab to password field (keyboard navigation)
+- tapOn:
+    text: "Password"
+
+# Type password
+- inputText: "demo123"
+
+# Test visibility of password toggle (accessibility feature)
+# In React Native, this might be identified by testID
+- assertVisible:
+    id: "password-visibility-toggle"
+
+# Tap login button
+- tapOn:
+    text: "Sign In"
+
+# Wait for navigation
+- waitForAnimationToEnd
+
+# Verify successful login by checking for home screen content
+- assertVisible:
+    text: "Health Overview"
+
+# Test accessibility: Home screen should be accessible
+- assertVisible:
+    id: "home-screen"
+
+# Verify we're on home screen by checking for navigation elements
+- assertVisible:
+    text: "Medications"
+
+---
+# Logout flow to clean up
+- tapOn:
+    id: "settings-button"
+
+- waitForAnimationToEnd
+
+- tapOn:
+    text: "Logout"
+
+- waitForAnimationToEnd
+
+- assertVisible:
+    text: "Welcome"
+

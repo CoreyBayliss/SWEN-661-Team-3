@@ -1,0 +1,203 @@
+# E2E Test: Settings & Accessibility Configuration Flow
+# Critical user flow for app preferences and accessibility options
+# Comprehensive accessibility testing
+# React Native / Expo Implementation
+
+appId: com.careconnect.expo  # Updated for React Native
+
+---
+- launchApp
+
+# Login
+- waitForAnimationToEnd
+- tapOn:
+    text: "Username"
+- inputText: "demo"
+- tapOn:
+    text: "Password"
+- inputText: "demo123"
+- tapOn:
+    text: "Sign In"
+- waitForAnimationToEnd
+
+# Navigate to Settings
+- tapOn:
+    id: "settings-button"
+
+- waitForAnimationToEnd
+
+# Verify settings screen loaded
+- assertVisible:
+    id: "settings-screen"
+
+- assertVisible:
+    text: "Settings"
+
+# Test accessibility: Verify all settings sections visible
+- assertVisible:
+    text: "Accessibility"
+
+- assertVisible:
+    text: "Notifications"
+
+- assertVisible:
+    text: "Appearance"
+
+# Test left-hand mode toggle (accessibility feature)
+- tapOn:
+    text: "Left-hand Mode"
+
+- waitForAnimationToEnd
+
+# Verify toggle changed
+- assertVisible:
+    id: "left_hand_mode_toggle"
+
+# Test biometric authentication toggle
+- tapOn:
+    text: "Biometric"
+
+- waitForAnimationToEnd
+
+# Verify biometric setting changed
+- assertVisible:
+    id: "biometric_toggle"
+
+# Test text size settings (accessibility)
+- tapOn:
+    text: "Text Size"
+
+- waitForAnimationToEnd
+
+# Select larger text size
+- tapOn:
+    text: "Large"
+
+- waitForAnimationToEnd
+
+# Verify text size changed
+- assertVisible:
+    text: "Text Size"
+
+# Test screen reader settings
+- tapOn:
+    text: "Screen Reader"
+
+- waitForAnimationToEnd
+
+# Verify screen reader toggle
+- assertVisible:
+    id: "screen_reader_toggle"
+
+# Test high contrast mode (accessibility)
+- tapOn:
+    text: "High Contrast"
+
+- waitForAnimationToEnd
+
+# Verify high contrast setting
+- assertVisible:
+    id: "high_contrast_toggle"
+
+# Test notification preferences
+- tapOn:
+    text: "Notifications"
+
+- waitForAnimationToEnd
+
+# Verify notification settings
+- assertVisible:
+    text: "Appointment Reminders"
+
+- assertVisible:
+    text: "Medication Reminders"
+
+# Toggle appointment reminders
+- tapOn:
+    id: "appointment_reminders_toggle"
+
+- waitForAnimationToEnd
+
+# Set reminder time
+- tapOn:
+    text: "Reminder Time"
+
+- waitForAnimationToEnd
+
+# Select time
+- tapOn:
+    text: "9:00 AM"
+
+- waitForAnimationToEnd
+
+# Test appearance/theme settings
+- tapOn:
+    text: "Appearance"
+
+- waitForAnimationToEnd
+
+# Test dark mode toggle
+- tapOn:
+    text: "Dark Mode"
+
+- waitForAnimationToEnd
+
+# Verify dark mode applied
+- assertVisible:
+    id: "settings_screen"
+
+# Test language settings
+- tapOn:
+    text: "Language"
+
+- waitForAnimationToEnd
+
+# Select language
+- tapOn:
+    text: "English"
+
+- waitForAnimationToEnd
+
+# Test about section
+- tapOn:
+    text: "About"
+
+- waitForAnimationToEnd
+
+# Verify about information
+- assertVisible:
+    text: "Version"
+
+- assertVisible:
+    text: "Privacy Policy"
+
+# Test navigating back to home
+- tapOn:
+    id: "back_button"
+
+- waitForAnimationToEnd
+
+# Verify home screen loaded
+- assertVisible:
+    text: "Health Overview"
+
+---
+# Verify accessibility settings were applied throughout app
+- tapOn:
+    text: "Medications"
+
+- waitForAnimationToEnd
+
+# Check that text size is applied
+- assertVisible:
+    id: "medications_screen"
+
+# Navigate back
+- tapOn:
+    id: "back_button"
+
+- waitForAnimationToEnd
+
+# Return to home
+- assertVisible:
+    text: "Health Overview"

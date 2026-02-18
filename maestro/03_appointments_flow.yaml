@@ -1,0 +1,160 @@
+# E2E Test: Appointment Viewing & Scheduling Flow
+# Critical user flow for managing medical appointments
+# Includes accessibility navigation patterns
+# React Native / Expo Implementation
+
+appId: com.careconnect.expo  # Updated for React Native
+
+---
+- launchApp
+
+# Login
+- waitForAnimationToEnd
+- tapOn:
+    text: "Username"
+- inputText: "demo"
+- tapOn:
+    text: "Password"
+- inputText: "demo123"
+- tapOn:
+    text: "Sign In"
+- waitForAnimationToEnd
+
+# Navigate to Appointments (via calendar or today view)
+- tapOn:
+    text: "Appointments"
+- waitForAnimationToEnd
+
+# Verify calendar/appointments screen loaded
+- assertVisible:
+    id: "calendar-view"
+
+# Test accessibility: Current date should be visible
+- assertVisible:
+    id: "current-date"
+
+# Select a date on calendar (tap on a calendar date)
+- tapOn:
+    id: "calendar-date"
+
+- waitForAnimationToEnd
+
+# Verify appointments for selected date
+- assertVisible:
+    id: "appointments-for-date"
+
+# Check appointment card is shown
+- assertVisible:
+    id: "appointment-card"
+
+# Tap on an appointment
+- tapOn:
+    id: "appointment-card"
+
+- waitForAnimationToEnd
+
+# Verify appointment details screen
+- assertVisible:
+    id: "appointment-detail"
+
+- assertVisible:
+    id: "appointment-title"
+
+- assertVisible:
+    id: "appointment-time"
+
+- assertVisible:
+    id: "appointment-location"
+
+- assertVisible:
+    id: "appointment-provider"
+
+# Test accessibility: Appointment information should be readable
+- assertVisible:
+    text: "Appointment Details"
+
+# Test reminder button (accessibility friendly)
+- tapOn:
+    id: "set-reminder-button"
+
+- waitForAnimationToEnd
+
+# Verify reminder confirmation
+- assertVisible:
+    text: "Reminder"
+
+# Navigate back
+- tapOn:
+    id: "back-button"
+
+- waitForAnimationToEnd
+
+# Back at appointments list
+- assertVisible:
+    text: "Appointments"
+
+# Test adding new appointment
+- tapOn:
+    id: "add-appointment-button"
+
+- waitForAnimationToEnd
+
+# Fill in appointment form
+- assertVisible:
+    text: "Add Appointment"
+
+- tapOn:
+    id: "appointment-title-field"
+
+- inputText: "Test Appointment"
+
+- tapOn:
+    id: "appointment-time-field"
+
+# Select time (implementation specific)
+- waitForAnimationToEnd
+
+# Submit form
+- tapOn:
+    text: "Save"
+
+- waitForAnimationToEnd
+
+# Verify back at appointments list
+- assertVisible:
+    text: "Appointments"
+
+
+- waitForAnimationToEnd
+
+# Verify appointment was cancelled
+- assertVisible:
+    text: "Appointment cancelled"
+
+# Navigate back to calendar
+- tapOn:
+    id: "back_button"
+
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "calendar_view"
+
+---
+# Test Today View for quick access
+- tapOn:
+    text: "Today"
+
+- waitForAnimationToEnd
+
+# Verify today view is shown
+- assertVisible:
+    id: "today_view"
+
+# Check upcoming appointments section
+- assertVisible:
+    text: "Upcoming"
+
+# Verify appointments are listed
+- assertVisible:
+    id: "appointment_item"
